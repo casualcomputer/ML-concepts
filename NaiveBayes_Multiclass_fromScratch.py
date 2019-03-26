@@ -1,5 +1,8 @@
 from __future__ import absolute_import
 from __future__ import print_function
+from future.standard_library import install_aliases
+
+install_aliases()
 
 import numpy as np
 import os
@@ -10,11 +13,6 @@ import array
 import matplotlib.pyplot as plt
 import matplotlib.image
 from urllib.request import urlretrieve
-from future.standard_library import install_aliases
-
-install_aliases()
-
-
 
 
 def download(url, filename):
@@ -196,8 +194,7 @@ if __name__ == "__main__":
     print(theta_matrix_)
     save_images(theta_matrix_, "hi")
     print("Average Log-likelihood: ", average_log_likelihood(train_sample, train_labels, theta_matrix_))
-    print("Predictions: ", predict(train_sample, train_labels, theta_matrix_),
-          predict(train_sample, train_labels, theta_matrix_).shape)
-    print("Labels: ", get_target(train_labels).reshape((9999, 1)), get_target(train_labels).shape)
+    #print("Predictions: ", predict(train_sample, train_labels, theta_matrix_),predict(train_sample, train_labels, theta_matrix_).shape)
+    #print("Labels: ", get_target(train_labels).reshape((9999, 1)), get_target(train_labels).shape)
     print("Training Accuracy", accuracy(train_sample, train_labels, theta_matrix_))  # accuracy on training set
     # print("Testing Accuracy",accuracy(test_labels,train_labels,theta_matrix_))
