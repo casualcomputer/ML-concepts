@@ -154,10 +154,10 @@ def average_log_likelihood(data, data_label, theta_matrix):
 def predict(data, data_label, theta_matrix_):  # theta_matrix_ is 10 by 784
     theta_matrix_ = np.transpose(theta_matrix_)
     N = data.shape[0]  # number of data points
-    prediction = np.ones((N, 1))  # create a prediciton vector
+    prediction = np.ones((N, 1))  # create a prediction vector
     a2 = np.dot(1 + data, np.log(theta_matrix_))
     a3 = np.dot(2 - data, np.log(1 - theta_matrix_))
-    predict_matrix = a2 + a3  # calculate log p(c|x) using theta_cd, for every c \in \{1,...,k\}
+    predict_matrix = a2 + a3  # calculate log p(c|x)
     print("predict_matrix", predict_matrix.shape)
     probability_matrix = np.amax(predict_matrix, axis=1)  # take the biggest log probability
     print("probability_matrix", probability_matrix.shape)
@@ -168,7 +168,9 @@ def predict(data, data_label, theta_matrix_):  # theta_matrix_ is 10 by 784
 
 def accuracy(data, data_label, theta_matrix_):
     N = data.shape[0]
+    print(N)
     predictions = predict(data, data_label, theta_matrix_).reshape((N, 1))
+    print("data.shape", data.shape)
     labels = get_target(data_label).reshape((N, 1))
     print("labels.shape", labels.shape)
     diff = predictions - labels
@@ -184,17 +186,24 @@ if __name__ == "__main__":
     test_labels = load_mnist()[4]
 
     # building a model with samples
-    train_sample = binarize(train_images[1:10000, ])
-    train_labels = binarize(train_labels[1:10000, ])
-    test_sample = binarize(test_images[1:10000, ])
-    test_labels = binarize(test_labels[1:10000, ])
+    #train_sample = binarize(train_images[1:10000, ])
+    #train_labels = binarize(train_labels[1:10000, ])
+    #test_sample = binarize(test_images[1:10000, ])
+    #test_labels = binarize(test_labels[1:10000, ])
+
+    train_sample = binarize(train_images)
+    train_labels = binarize(train_labels)
+    test_sample = binarize(test_images)
+    test_labels = binarize(test_labels)
+
 
     theta_matrix_ = theta_matrix(train_sample, train_labels)
 
-    print(theta_matrix_)
-    save_images(theta_matrix_, "hi")
+    #print(theta_matrix_)
+    #save_images(theta_matrix_, "hi")
     print("Average Log-likelihood: ", average_log_likelihood(train_sample, train_labels, theta_matrix_))
-    #print("Predictions: ", predict(train_sample, train_labels, theta_matrix_),predict(train_sample, train_labels, theta_matrix_).shape)
-    #print("Labels: ", get_target(train_labels).reshape((9999, 1)), get_target(train_labels).shape)
+    # print("Predictions: ", predict(train_sample, train_labels, theta_matrix_),predict(train_sample, train_labels, theta_matrix_).shape)
+    # print("Labels: ", get_target(train_labels).reshape((9999, 1)), get_target(train_labels).shape)
+
     print("Training Accuracy", accuracy(train_sample, train_labels, theta_matrix_))  # accuracy on training set
-    # print("Testing Accuracy",accuracy(test_labels,train_labels,theta_matrix_))
+    print("Testing Accuracy",accuracy(test_sample,test_labels,theta_matrix_)) #what happened here
