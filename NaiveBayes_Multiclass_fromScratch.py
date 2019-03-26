@@ -1,5 +1,8 @@
 from __future__ import absolute_import
 from __future__ import print_function
+from future.standard_library import install_aliases
+
+install_aliases()
 
 import numpy as np
 import os
@@ -10,11 +13,6 @@ import array
 import matplotlib.pyplot as plt
 import matplotlib.image
 from urllib.request import urlretrieve
-from future.standard_library import install_aliases
-
-install_aliases()
-
-
 
 
 def download(url, filename):
